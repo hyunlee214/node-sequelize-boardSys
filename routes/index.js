@@ -11,6 +11,14 @@ router.get('/board', function(req, res, next) {
   res.render('show');
 });
 
+router.get('/board', function(res, req, next) {
+  models.post.findAll().then( result => {
+    res.render('show', {
+      posts: result 
+    });
+  });
+});
+
 router.post('/board', function(req, res, next) {
   let body = req.body;
 
