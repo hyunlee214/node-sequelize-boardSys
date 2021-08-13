@@ -35,6 +35,25 @@ router.get('/edit/:id', function(res, req, next) {
   });
 });
 
+router.put('/board/:id', function(req, res, next) {
+  let postId = req.params.id;
+  let body = req.body;
+
+  models.post.update({
+    title: body.editTitle,
+    writer: body.editWriter
+  }, {
+    where: {id: postID}
+  })
+  .then(result => {
+    console.log('data edit ok');
+    res.redirect('/board');
+  })
+  .catch(err => {
+    console.log('data edit failed...sorry..');
+  });
+});
+
 router.post('/board', function(req, res, next) {
   let body = req.body;
 
@@ -50,6 +69,21 @@ router.post('/board', function(req, res, next) {
       console.log('data input failed,,sorry,,');
     })
 });
+
+router.delete('/board/:id', function(req, res, next) {
+  let postID = req.params.id;
+
+  models.post.destory({
+    where: {id: postID}
+  })
+  .then(result => {
+    res.redirect('/board')
+  })
+  .catch(err=> {
+    console.log('data delete failed...');
+  });
+});
+
 
 module.exports = router;
 

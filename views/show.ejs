@@ -19,6 +19,20 @@
     </table>
     <input type = "submit" value="Send">
     </form>
- 
+    <hr>
+      <% for(let post of posts) { %>    
+        <table>
+        <td>title</td>
+        <td>writer</td>
+        <td>date</td>
+      </tr>
+
+        <tr>
+          <td><%= post.title %</td>
+          <td><%= post.writer %</td>
+          <td><%= post.createAt %</td>
+        </tr>
+      <% } %> 
+      </table>
   </body>
 </html>
