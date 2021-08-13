@@ -19,6 +19,22 @@ router.get('/board', function(res, req, next) {
   });
 });
 
+router.get('/edit/:id', function(res, req, next) {
+  let postID = req.params.id;
+
+  models.post.findOne({
+    where: {id: postID}
+  })
+  .then(result => {
+    res.render('edit', {
+      post: result
+    });
+  })
+  .catch(err => {
+    console.log('data read failed,,');
+  });
+});
+
 router.post('/board', function(req, res, next) {
   let body = req.body;
 
