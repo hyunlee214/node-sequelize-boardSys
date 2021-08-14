@@ -15,6 +15,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     }
   });
+  
+  reply.associate = function(models) {
+    reply.belongsTo(models.post, {
+      foreignKey: "postId"
+    })
+  };
   return reply;
 };
 
