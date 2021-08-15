@@ -7,7 +7,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'boardSystem' });
 });
 
-
 // router.get('/board', function(req, res, next) {
 //   models.post.findAll({
 //     where: {writer: 'hyunlee'}
