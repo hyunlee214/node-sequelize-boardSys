@@ -11,28 +11,46 @@
     <form action ="/board" method="POST">
     <table>
       <tr>
-        <td><input type = "text" name="inputTitle" placeholder="건의사항"></td>
+        <td><input type = "text" name="inputTitle" placeholder="제목입력"></td>
       </tr>
       <tr>
-        <td><input type = "text" name="inputWriter" placeholder="애로사항"></td>
+        <td><input type = "text" name="inputWriter" placeholder="작성자입력"></td>
       </tr>
     </table>
     <input type = "submit" value="Send">
     </form>
-          <!-- <hr>
-      <% for(let post of posts) { %>    
-        <table>
-        <td>title</td>
-        <td>writer</td>
-        <td>date</td>
-      </tr>
+      <hr>
 
-        <tr>
-          <td><%= post.title %</td>
-          <td><%= post.writer %</td>
-          <td><%= post.createAt %</td>
-        </tr>
-      <% } %> 
-      </table> -->
-  </body>
+      <% for(let post of posts) { %>
+        <table>
+            <tr>
+                <td>제목</td>
+                <td>작성자</td>
+                <td>작성일</td>
+            </tr>
+            <tr>
+                <td><%= post.title %></td>
+                <td><%= post.writer %></td>
+                <td><%= post.createdAt %></td>
+                <td><button ><a href="/board/<%=post.id%>">수정하기</a></button></td>
+    
+                <form action="/board/<%=post.id%>?_method=DELETE" method="post">
+                    <td><input type="submit" value="삭제하기"></input></td>
+                </form>
+            </tr>
+    
+            <form action="/reply/<%=post.id%>" method="post">
+                <tr>
+                    <td><input type="text" name="replyWriter" placeholder="작성자를입력"></td>
+                    <td><input type="text" name="replyContent" placeholder="내용입력"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="댓글 등록"></td>
+            </tr>
+        </form>
+    </table>
+    <hr>
+<% } %>
+
+</body>
 </html>
