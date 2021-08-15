@@ -11,10 +11,10 @@
     <form action ="/board" method="POST">
     <table>
       <tr>
-        <td><input type = "text" name="inputTitle" placeholder="제목입력"></td>
+        <td><input type = "text" name="inputTitle" placeholder="건의사항"></td>
       </tr>
       <tr>
-        <td><input type = "text" name="inputWriter" placeholder="작성자입력"></td>
+        <td><input type = "text" name="inputWriter" placeholder="애로사항"></td>
       </tr>
     </table>
     <input type = "submit" value="Send">
@@ -41,7 +41,7 @@
     
             <form action="/reply/<%=post.id%>" method="post">
                 <tr>
-                    <td><input type="text" name="replyWriter" placeholder="작성자를입력"></td>
+                    <td><input type="text" name="replyWriter" placeholder="제목입력"></td>
                     <td><input type="text" name="replyContent" placeholder="내용입력"></td>
             </tr>
             <tr>
