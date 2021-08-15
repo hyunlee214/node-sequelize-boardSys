@@ -7,25 +7,14 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'boardSystem' });
 });
 
+
 router.get('/board', function(req, res, next) {
-  res.render('show');
-});
-
-// router.get('/board', function(res, req, next) {
-//   models.post.findAll().then( result => {
-//     res.render('show', {
-//       posts: result 
-//     });
-//   });
-// });
-
-router.get('/borad', function(req, res, next) {
   models.post.findAll({
     where: {writer: 'hyunlee'}
   })
   .then(result => {
     res.render('show', {
-      post: result
+      posts: result
     });
   })
   .catch(function(err) {
@@ -43,7 +32,7 @@ router.post('/board', function(req, res, next) {
   }) 
     .then(result => {
       console.log ('data input ok');
-      res.redirect('./board');
+      res.redirect('/show');
     })
     .catch(err => {
       console.log('data input failed,,sorry,,');
@@ -51,7 +40,7 @@ router.post('/board', function(req, res, next) {
 });
 
 
-router.get('/board/id', function(req, res, next) {
+router.get('/board/:id', function(req, res, next) {
   let postID = req.params.id;
 
   models.post.findOne({
@@ -63,7 +52,7 @@ router.get('/board/id', function(req, res, next) {
     });
   })
   .catch(err => {
-    console.log('데이터조회에러')
+    console.log('데이터조회에러');
   });
 });
 
@@ -97,13 +86,29 @@ router.delete('/board/:id', function(req, res, next) {
   .then(result => {
     res.redirect('/board')
   })
-  .catch(err=> {
+  .catch(err => {
     console.log('data delete failed...');
   });
 });
 
+router.post('/reply/:postID', function(req, res, next) {
+  let postID = req.params.postID;
+  let body = req.body;
 
+  models.reply.create({
+    postId: postID,
+    writer: body.replyWriter,
+    content: body.replyContent
+  })
+  .then( result => {
+    res.redirect('/board');
+  })
+  .catch(err => {
+    console.log(err);
+  });
+});
 
 module.exports = router;
+
 
 
