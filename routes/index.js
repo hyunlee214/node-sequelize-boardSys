@@ -8,37 +8,42 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.get('/board', function(req, res, next) {
-  models.post.findAll({
-    where: {writer: 'hyunlee'}
-  })
-  .then(result => {
-    res.render('show', {
-      posts: result
-    });
-  })
-  .catch(function(err) {
-    console.log(err);
+// router.get('/board', function(req, res, next) {
+//   models.post.findAll({
+//     where: {writer: 'hyunlee'}
+//   })
+//   .then(result => {
+//     res.render('show', {
+//       posts: result
+//     });
+//   })
+//   .catch(function(err) {
+//     console.log(err);
+//   });
+// });
+
+router.get('/board', async function(req, res, next) {
+  let result = await models.post.findAll();
+  if (result){
+    for(let post of result){
+      let result2 = await models.post.findOne({
+        include: {
+          model: models.reply,
+          where: {
+            postId: post.id
+          }
+        }
+      })
+      if(result2){
+        post.replies = result2.replies
+      }
+    } 
+  }
+  res.render("show", {
+    posts : result
   });
 });
 
-router.get('/board', function(req, res, next) {
-  models.post.findAll()
-  .then (result => {
-    models.post.findOne({
-      include: {
-        model : models.reply,
-        where: {postId : 1}
-      }
-    })
-    .then(result2 => {
-      console.log(result2.replies)
-    })
-  })
-  .catch(function(err) {
-    console.log(err);
-  });
-});
 
 
 router.post('/board', function(req, res, next) {
@@ -108,6 +113,7 @@ router.delete('/board/:id', function(req, res, next) {
     console.log('data delete failed...');
   });
 });
+
 
 router.post('/reply/:postID', function(req, res, next) {
   let postID = req.params.postID;
