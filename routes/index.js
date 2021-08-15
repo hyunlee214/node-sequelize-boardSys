@@ -22,6 +22,24 @@ router.get('/board', function(req, res, next) {
   });
 });
 
+router.get('/board', function(req, res, next) {
+  models.post.findAll()
+  .then (result => {
+    models.post.findOne({
+      include: {
+        model : models.reply,
+        where: {postId : 1}
+      }
+    })
+    .then(result2 => {
+      console.log(result2.replies)
+    })
+  })
+  .catch(function(err) {
+    console.log(err);
+  });
+});
+
 
 router.post('/board', function(req, res, next) {
   let body = req.body;
