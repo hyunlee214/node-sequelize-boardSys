@@ -78,7 +78,7 @@ router.get('/board/:id', function(req, res, next) {
   });
 });
 
-
+//수정 OK
 router.put('/board/:id', function(req, res, next) {
   let postID = req.params.id;
   let body = req.body;
@@ -98,10 +98,10 @@ router.put('/board/:id', function(req, res, next) {
   });
 });
 
-
+//삭제
 router.delete('/board/:id', function(req, res, next) {
   let postID = req.params.id;
-
+  
   models.post.destory({
     where: {id: postID}
   })

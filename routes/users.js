@@ -7,8 +7,8 @@ router.get('/sign_up', function(req, res, next) {
   res.render('user/signup');
 });
 
-router.post("/sign_up", function(req,res,next){
-  let body = req.body;
+router.post('/sign_up', function(req, res, next){
+  let body = req.body;  
 
   models.user.create({
     name: body.userName,
@@ -16,7 +16,7 @@ router.post("/sign_up", function(req,res,next){
     password: body.password
   })
   .then(result => {
-    res.redirect("/users/sign_up");
+    res.redirect('/users/sign_up');
   })
   .catch(err => {
     console.log(err)
