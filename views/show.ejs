@@ -20,7 +20,6 @@
     <input type = "submit" value="Send">
     </form>
       <hr>
-
       <% for(let post of posts) { %>
         <table>
             <tr>
@@ -48,7 +47,7 @@
                 <td><input type="submit" value="댓글 등록"></td>
             </tr>
         </form>
-        
+
         <% if(post.replies){
           for(let reply of post.replies){ %>
           <tr>
