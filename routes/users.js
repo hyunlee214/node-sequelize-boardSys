@@ -21,13 +21,40 @@ router.post("/sign_up", async function(req,res,next){
     password: hashPassword,
     salt: salt
   })
-  .then( result => {
-    res.redirect("/users/sign_up");
-  })
-  .catch( err => {
-    console.log(err)
-  })
+  res.redirect('/user/sign_up');
 })
+
+router.get('/', function(req, res, next) {
+  res.send('환영합니다');
+});
+
+router.get('/login', function(req, res, next) {
+  res.render('user/login');
+});
+
+router.post('/login', async function(req, res, next) {
+  let body = req.body;
+
+  let result = await models.user.findOne({
+    where: {
+      email : body.userEmail
+    }
+  });
+
+  let dbPassword = result.dataVaules.password;
+  let inputPassword = body.password;
+  let salt = result.dataVaules.salt;
+  let hashPassword = crypto.createHash('sha512').update(inputPassword + salt).digest('hex');
+
+  if (dbPassword === hashPassword) {
+    console.log('비밀번호가 일치합니다');
+    res.redirect('/user');
+  }
+  else {
+    console.log('비밀번호가 다릅니다');
+    res.redirect('/user/login');
+  }
+});
 
 
 
