@@ -8,7 +8,7 @@ router.get('/sign_up', function(req, res, next) {
   res.render('user/signup');
 });
 
-router.post("/sign_up", async function(req,res,next){
+router.post("/sign_up", async function(req, res, next){
   let body = req.body;
 
   let inputPassword = body.password;
@@ -25,7 +25,7 @@ router.post("/sign_up", async function(req,res,next){
 })
 
 router.get('/', function(req, res, next) {
-  res.send('환영합니다');
+  res.send('로그인성공');
 });
 
 router.get('/login', function(req, res, next) {
@@ -48,10 +48,13 @@ router.post('/login', async function(req, res, next) {
 
   if (dbPassword === hashPassword) {
     console.log('비밀번호가 일치합니다');
+
+    req.session.email = body.userEmail;
     res.redirect('/user');
   }
   else {
     console.log('비밀번호가 다릅니다');
+    
     res.redirect('/user/login');
   }
 });
