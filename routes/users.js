@@ -69,4 +69,12 @@ router.post('/sign_up', async function(req, res, next) {
   }
 });
 
+// destroy() 메서드 활용 - 세션 삭제 기능 
+router.get('/logout', function(req, res, next) {
+  req.session.destroy();
+  res.clearCookie('sid');
+
+  res.redirect('/user/login');
+})
+
 module.exports = router;
