@@ -30,6 +30,15 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+  key: 'sid',
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: true,
+  cookie : {
+    maxAge: 24000 * 60 * 60 
+  }
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
