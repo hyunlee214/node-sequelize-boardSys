@@ -11,6 +11,7 @@ const session = require('express-session');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const fileUploadRouter = require('./routes/upload');          // multer모듈 사용
 
 const app = express();
 
@@ -45,6 +46,9 @@ app.use(methodOverride('_method'));
 
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
+// multer모듈 사용 - 파일 업로드
+app.use('/upload', fileUploadRouter);             
+app.use('/upload', express.static('uploads'));       // '/upload' 가상 경로 설정
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
