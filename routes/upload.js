@@ -1,7 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const upload = multer({ dest: 'upload/' })
+
+let storage = multer.diskStorage({
+  destination: function(req, file ,cb){
+      cb(null, "upload/")
+  },
+  filename: function(req, file, cb){
+      cb(null, file.originalname + " - " + Date.now())
+  }
+})
+
+let upload = multer({
+  storage: storage
+});
 
 router.get('/show', function(req, res, next) {
   res.render('board')
