@@ -14,6 +14,8 @@ router.post('/create', upload.single('imgFile'), function(req, res, next) {
     originalName: file.originalname,
     size: file.size,
   }
+
+  res.json(result);
 });
 
 module.exports = router;
