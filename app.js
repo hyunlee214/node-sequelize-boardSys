@@ -1,17 +1,17 @@
 "use strict";
 
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const methodOverride = require('method-override');
-const models = require('./models/index.js');
-const session = require('express-session');
+const createError       = require('http-errors');
+const express           = require('express');
+const path              = require('path');
+const cookieParser      = require('cookie-parser');
+const logger            = require('morgan');
+const methodOverride    = require('method-override');
+const models            = require('./models/index.js');
+const session           = require('express-session');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const fileUploadRouter = require('./routes/upload');          // multer모듈 사용
+const indexRouter       = require('./routes/index');
+const usersRouter       = require('./routes/users');
+const fileUploadRouter  = require('./routes/upload');          // multer모듈 사용
 
 const app = express();
 
@@ -24,14 +24,16 @@ models.sequelize.sync().then(() => {
 
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app
+  .set('views', path.join(__dirname, 'views'))
+  .set('view engine', 'ejs');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(session({
+app
+  .use(logger('dev'))
+  .use(express.json())
+  .use(express.urlencoded({ extended: false }))
+  .use(cookieParser())
+  .use(session({
   key: 'sid',
   secret: 'secret',
   resave: false,
@@ -39,24 +41,27 @@ app.use(session({
   cookie : {
     maxAge: 24000 * 60 * 60 
   }
-}));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(methodOverride('_method'));
+}))
+  .use(express.static(path.join(__dirname, 'public')))
+  .use(methodOverride('_method'));
 
 
-app.use('/', indexRouter);
-app.use('/user', usersRouter);
+app
+  .use('/', indexRouter)
+  .use('/user', usersRouter)
 // multer모듈 사용 - 파일 업로드
-app.use('/upload', fileUploadRouter);             
-app.use('/upload', express.static('uploads'));       // '/upload' 가상 경로 설정
+  .use('/upload', fileUploadRouter)             
+  .use('/upload', express.static('uploads'));       // '/upload' 가상 경로 설정
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app
+  .use(function(req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app
+  .use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

@@ -1,6 +1,6 @@
-const express = require('express');
-const models = require('../models');
-const router = express.Router();
+const express     = require('express');
+const models      = require('../models');
+const router      = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
