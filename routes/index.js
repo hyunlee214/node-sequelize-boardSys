@@ -102,7 +102,7 @@ router.put('/board/:id', function(req, res, next) {
 router.delete('/board/:id', function(req, res, next) {
   let postID = req.params.id;
   
-  models.post.destory({
+  models.post.destroy({
     where: {id: postID}
   })
   .then(result => {
